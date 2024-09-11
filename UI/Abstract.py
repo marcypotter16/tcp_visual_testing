@@ -147,4 +147,4 @@ class UIElement(UIContainer):
             ui_element.update(dt)
 
     def __str__(self):
-        return f"{self.x}, {self.y}, {self.width}, {self.height}"
+        return f"{self.x}, {self.y}, {self.width}, {self.height}\nChildren: {len(self.children)}"
