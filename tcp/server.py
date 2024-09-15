@@ -8,12 +8,25 @@ class TCPServer:
         self.sock.bind((self.host, self.port))
         self.sock.listen(num_connections)
         self.buf_size = buffer_size
+        self.clients = {}
 
     def handle_client(self, conn):
-        data = conn.recv(self.buf_size)
+        data = conn.recv(self.buf_size).decode("utf-8")
         print("Received:", data)
-        conn.sendall(data)
+        if data == "exit":
+            print(f"Client {conn.getpeername()} disconnected")
+            conn.close()
+            return
+        if data.startswith("alias:"):
+            alias = data.split(":")[1]
+            self.clients[alias] = conn
+            print(f"Alias set to {alias}")
+            conn.sendall(f"{alias} connected to the lobby".encode("utf-8"))
+        else:
+            for client in self.clients.values():
+                client.sendall(data.encode("utf-8"))
         conn.close()
+
 
     def run(self):
         print("Server is running...")

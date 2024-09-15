@@ -17,5 +17,6 @@ class Label(UIElement):
             self.font = font
 
     def render(self, surface: pygame.Surface):
+        super().render(surface)
         draw_centered_text(self.font, surface,
                            self.text, self.fg_color, self.rect)

@@ -139,7 +139,6 @@ class Entry(UIElement):
     def _handle_backspace(self):
         if self.caret.index_in_text == 0:
             return
-        print("Caret index in text:", self.caret.index_in_text, "Text:", self.text)
         self.caret.remove_char(self.text[self.caret.index_in_text - 1])
         aux_text = list(self.text)
         aux_text.pop(self.caret.index_in_text)

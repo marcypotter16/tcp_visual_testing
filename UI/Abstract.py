@@ -104,16 +104,15 @@ class UIElement(UIContainer):
 
         self.game = self.parent.game
 
-    def pack(self, side: str, padx: int = 0, pady: int = 0):
+    def pack(self, side: str, padx: int = 0, pady: int = 0, modify_parent_rect: bool = True):
         """
         Makes the children fit nicely inside the parent. Width or Height might get modified to fit in the frame.
         :param side: vert or horiz
         :param padx: horizontal padding
         :param pady: vertical padding
+        :param modify_parent_rect: whether to modify the parent's rect or not
         :return: None
         """
-
-        # self.parent.width = max([child.width for child in self.parent.children]) + 2 * padx
 
         s = side.lower()
         if s == "vert":
@@ -137,7 +136,9 @@ class UIElement(UIContainer):
                 self.x = self.parent.x + padx
 
         self.rect.update(self.x, self.y, self.width, self.height)
-        self.parent.rect.update(self.parent.x, self.parent.y, self.parent.width, self.parent.height)
+        if modify_parent_rect:
+            self.parent.rect.update(self.parent.x, self.parent.y, self.parent.width, self.parent.height)
+        
 
     def render(self, surface: pygame.Surface):
         super().render(surface)
