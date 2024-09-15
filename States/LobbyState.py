@@ -1,5 +1,3 @@
-from cgitb import text
-from matplotlib import container
 from pygame import Surface, Vector2, Vector3, image
 from States.State import State
 from UI.Abstract import UIContainer, UIElement
